@@ -13,6 +13,12 @@ public class MyLinkedList<T> implements MyList<T> {
 
     private int size = 0;
 
+    public MyLinkedList(T... args) {
+        for (T arg: args) {
+            add(arg);
+        }
+    }
+
     @Override
     public T get(int position) {
         if (size == 0 && position == 0 ) {
@@ -37,6 +43,7 @@ public class MyLinkedList<T> implements MyList<T> {
             head = newNode;
         } else {
             lastNode.next = newNode;
+            newNode.prev = lastNode;
         }
         size++;
     }
@@ -51,7 +58,7 @@ public class MyLinkedList<T> implements MyList<T> {
         for (int i = 0; i < position; i++) {
             current = current.next;
         }
-        link(current,newNode);
+        link(current.prev,newNode);
         size++;
     }
 

@@ -84,7 +84,7 @@ public class Array<T> implements MyList<T> {
 
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     private void increaseCapacity() {
@@ -105,7 +105,7 @@ public class Array<T> implements MyList<T> {
     }
 
     private void copyRightOfInx(int inx) {
-        System.arraycopy(arr, inx, arr, inx + 1, size - inx - 1);
+        System.arraycopy(arr, inx, arr, inx + 1, size - inx);
     }
 
     @Override
