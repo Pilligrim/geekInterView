@@ -113,7 +113,7 @@ public class MyLinkedList<T> implements MyList<T> {
 
     @Override
     public Iterator<T> iterator() {
-        return null;
+        return iterator;
     }
 
     @Override
