@@ -1,3 +1,5 @@
+package db;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -11,7 +13,7 @@ public class BasicConnectionPoolImpl implements ConnectionPool {
     private List<Connection> usedConnections = new ArrayList<>();
     private List<Connection> connectionPool;
 
-    public BasicConnectionPoolImpl init(String url, String user, String password) throws SQLException, ClassNotFoundException {
+    public static BasicConnectionPoolImpl init() throws SQLException, ClassNotFoundException {
         // Регистрируем драйвер, с которым будем работать
         Class.forName("org.sqlite.JDBC");
         List<Connection> pool = new ArrayList<>(INITIAL_POOL_SIZE);
@@ -29,7 +31,10 @@ public class BasicConnectionPoolImpl implements ConnectionPool {
     }
 
     @Override
-    public Connection getConnection() {
+    public Connection getConnection() throws SQLException {
+        if (connectionPool.size() == 0) {
+            connectionPool.add(DriverManager.getConnection(CON_STR));
+        }
         Connection connection = connectionPool.remove(connectionPool.size() - 1);
         usedConnections.add(connection);
         return connection;
